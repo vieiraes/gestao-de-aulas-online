@@ -1,0 +1,28 @@
+version: '3.1'
+services:
+
+  db:
+    image: postgres:latest
+    container_name: postgres-aulas
+    hostname: postgres-aulas
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: admin
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --locale=C"
+      PGTZ: Sao_Paulo/Brazil
+      TZ: Sao_Paulo/Brazil
+    ports:
+      - 5433:5432
+    volumes:
+      - postgres-aulas-volume:/var/lib/postgresql/data
+    networks:
+      - default
+volumes:
+  postgres-aulas-volume:
+    name: postgres-aulas-volume
+    driver: local
+networks:
+  default:
+    name: aulas-networks
+    driver: bridge

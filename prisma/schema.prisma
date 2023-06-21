@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Student {
+  id           String        @id @default(uuid())
+  name         String
+  email        String        @unique
+  createdAt    DateTime      @default(now())
+  appointments Appointment[]
+}
+
+model Teacher {
+  id             String          @id @default(uuid())
+  name           String
+  email          String          @unique
+  createdAt      DateTime        @default(now())
+  appointments   Appointment[]
+  availableTimes AvailableTime[]
+}
+
+model Appointment {
+  id        String   @id @default(uuid())
+  student   Student  @relation(fields: [studentId], references: [id])
+  studentId String
+  teacher   Teacher  @relation(fields: [teacherId], references: [id])
+  teacherId String
+  dateTime  DateTime
+  status    String
+  createdAt DateTime @default(now())
+
+  @@index([studentId, dateTime])
+}
+
+model AvailableTime {
+  id        String   @id @default(uuid())
+  teacher   Teacher  @relation(fields: [teacherId], references: [id])
+  teacherId String
+  startTime DateTime
+  endTime   DateTime
+
+  @@index([teacherId, startTime, endTime])
+}
