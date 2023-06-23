@@ -4,7 +4,7 @@ export interface IStudent {
     id?: string,
     name: string,
     email: string,
-    createdAt?: string,
+    createdAt?: Date,
     appointments?: IAppointment[] | string[]
 
 }
