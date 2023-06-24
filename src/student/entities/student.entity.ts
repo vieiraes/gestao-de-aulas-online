@@ -3,5 +3,5 @@ export class StudentEtt {
     name: string;
     email: string;
     createdAt: Date;
-    appointments: Array<string>
+    appointments?: Array<string>
 }
