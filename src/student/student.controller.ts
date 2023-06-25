@@ -1,7 +1,7 @@
 import { Body, Controller, Post, Get, Param } from '@nestjs/common';
 import { StudentService } from './student.service';
 import { IStudent } from './interfaces/student.Interface'
-import { CreateStudentDto } from './dto/student.dto'
+import { CreateStudentDto } from './dto/CreateStudent.dto'
 
 @Controller('students')
 export class StudentController {
@@ -31,5 +31,3 @@ export class StudentController {
   }
 
 }
-
-

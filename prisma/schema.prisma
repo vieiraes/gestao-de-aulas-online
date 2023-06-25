@@ -18,7 +18,7 @@ model Student {
   appointments Appointment[]
 }
 
-model Teacher {
+model Instructor {
   id             String          @id @default(uuid())
   name           String
   email          String          @unique
@@ -28,24 +28,25 @@ model Teacher {
 }
 
 model Appointment {
-  id        String   @id @default(uuid())
-  student   Student  @relation(fields: [studentId], references: [id])
-  studentId String
-  teacher   Teacher  @relation(fields: [teacherId], references: [id])
-  teacherId String
-  dateTime  DateTime
-  status    String
-  createdAt DateTime @default(now())
+  id           String     @id @default(uuid())
+  student      Student    @relation(fields: [studentId], references: [id])
+  studentId    String
+  instructor   Instructor @relation(fields: [instructorId], references: [id])
+  instructorId String
+  startTime    DateTime
+  endTime      DateTime
+  status       String
+  createdAt    DateTime   @default(now())
 
-  @@index([studentId, dateTime])
+  @@index([studentId, startTime, endTime])
 }
 
 model AvailableTime {
-  id        String   @id @default(uuid())
-  teacher   Teacher  @relation(fields: [teacherId], references: [id])
-  teacherId String
-  startTime DateTime
-  endTime   DateTime
+  id         String     @id @default(uuid())
+  instructor Instructor @relation(fields: [teacherId], references: [id])
+  teacherId  String
+  startTime  DateTime
+  endTime    DateTime
 
   @@index([teacherId, startTime, endTime])
 }

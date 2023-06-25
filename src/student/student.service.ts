@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CreateStudentDto } from './dto/student.dto';
+import { CreateStudentDto } from './dto/CreateStudent.dto';
 import { PrismaService } from 'src/libs/database/prisma.service';
 import { v4 as uuidv4 } from 'uuid'
 
@@ -19,7 +19,7 @@ export class StudentService {
                         create: []
                     }
                 }
-            });
+            })
             return studentReturn;
         } catch (error) {
             console.log(error);

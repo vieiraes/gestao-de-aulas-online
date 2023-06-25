@@ -1,4 +1,4 @@
-import { IAppointment } from "src/appointment/appointment.dto"
+import { IAppointment } from "src/appointment/interface/appointment.interface"
 
 export interface IStudent {
     id?: string,
