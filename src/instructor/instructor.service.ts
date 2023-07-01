@@ -5,11 +5,12 @@ import { v4 as uuidv4 } from 'uuid'
 import { IInstructor } from './interface/instructor.interface'
 
 
+
 @Injectable()
 export class InstructorService {
     constructor(private prismaService: PrismaService) { }
 
-    async createInstructor(newInstructorObj: CreateInstructorDto){
+    async createInstructor(newInstructorObj: CreateInstructorDto): Promise<IInstructor> {
         try {
             const returnObject = await this.prismaService.instructor.create({
                 data: {
@@ -32,7 +33,41 @@ export class InstructorService {
         }
     }
 
-    // listAllInstructors() { }
+    async listAllInstructors(): Promise<IInstructor[]> {
+        try {
+            const returnObject = await this.prismaService.instructor.findMany({
+                orderBy: {
+                    createdAt: 'desc'
+                },
+                include: {
+                    appointments: true,
+                    availableTimes: true
 
-    // OpenInstructorById() { }
+                }
+            })
+            return returnObject
+        } catch (error) {
+            console.log(error);
+            throw new HttpException('Error ao consultar Instructor', HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    async openInstructorById(instructorId: string): Promise<IInstructor> {
+        try {
+            const objectReturn = await this.prismaService.instructor.findUnique({
+                where: {
+                    id: instructorId
+                },
+                include:{
+                    appointments: true,
+                    availableTimes: true
+                }
+
+            })
+            return objectReturn
+        } catch (error) {
+            console.log(error);
+            throw new HttpException('Error to open instructor', HttpStatus.BAD_REQUEST);
+        }
+    }
 }

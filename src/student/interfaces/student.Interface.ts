@@ -5,5 +5,5 @@ export interface IStudent {
     name: string,
     email: string,
     createdAt?: Date,
-    appointments?: IAppointment[] 
+    appointments?: IAppointment[]  | any[]
 }

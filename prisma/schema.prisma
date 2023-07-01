@@ -42,11 +42,11 @@ model Appointment {
 }
 
 model AvailableTime {
-  id         String     @id @default(uuid())
-  instructor Instructor @relation(fields: [teacherId], references: [id])
-  teacherId  String
-  startTime  DateTime
-  endTime    DateTime
+  id           String     @id @default(uuid())
+  instructor   Instructor @relation(fields: [instructorId], references: [id])
+  instructorId String
+  startTime    DateTime
+  endTime      DateTime
 
-  @@index([teacherId, startTime, endTime])
+  @@index([instructorId, startTime, endTime])
 }

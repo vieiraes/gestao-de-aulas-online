@@ -2,12 +2,13 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateStudentDto } from './dto/CreateStudent.dto';
 import { PrismaService } from 'src/libs/database/prisma.service';
 import { v4 as uuidv4 } from 'uuid'
+import { IStudent } from './interfaces/student.Interface';
 
 @Injectable()
 export class StudentService {
     constructor(private prismaService: PrismaService) { }
 
-    async createStudent(newUserObj: CreateStudentDto) {
+    async createStudent(newUserObj: CreateStudentDto):Promise<IStudent> {
         try {
             const studentReturn = await this.prismaService.student.create({
                 data: {
@@ -27,11 +28,14 @@ export class StudentService {
         }
     }
 
-    async getStudentById(studentId: string): Promise<CreateStudentDto> {
+    async getStudentById(studentId: string): Promise<IStudent> {
         try {
             const returnObject = await this.prismaService.student.findUnique({
                 where: {
                     id: studentId
+                },
+                include:{
+                    appointments:true
                 }
             })
             return returnObject
@@ -42,7 +46,7 @@ export class StudentService {
         }
     }
 
-    async listAllStudents() {
+    async listAllStudents():Promise<IStudent[]> {
         try {
             const allStudents: CreateStudentDto[] = await this.prismaService.student.findMany({
                 orderBy: {

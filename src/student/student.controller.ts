@@ -16,16 +16,14 @@ export class StudentController {
 
 
   @Post()
-  async createStudent(
-    @Body() dataBody: CreateStudentDto): Promise<IStudent> {
+  async createStudent(@Body() dataBody: CreateStudentDto): Promise<IStudent> {
     const objectReturn = await this.studentService.createStudent(dataBody)
     return objectReturn
   }
 
 
   @Get('/:id')
-  async getStudentById(
-    @Param('id') id: string): Promise<IStudent> {
+  async getStudentById(@Param('id') id: string): Promise<IStudent> {
     const objectReturn = await this.studentService.getStudentById(id)
     return objectReturn
   }

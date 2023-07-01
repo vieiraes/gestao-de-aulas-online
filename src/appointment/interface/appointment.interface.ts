@@ -4,7 +4,7 @@ export interface IAppointment {
     instructor: string,
     startTime: Date,
     endTime: Date,
-    status?: IAppointmentStatusEnum,
+    status?: IAppointmentStatusEnum ,
     createdAt?: Date,
 }
 

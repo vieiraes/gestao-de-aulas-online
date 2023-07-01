@@ -9,8 +9,7 @@ export class AppointmentController {
   constructor(private readonly appointmentService: AppointmentService) { }
 
   @Post()
-  async createAppointment(
-    @Body() dataBody: CreateAppointmentDto): Promise<IAppointment | any> {
+  async createAppointment(@Body() dataBody: CreateAppointmentDto): Promise<IAppointment> {
     const objectReturn = await this.appointmentService.createAppointment(dataBody)
     return objectReturn
   }

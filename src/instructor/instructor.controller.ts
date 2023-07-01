@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { InstructorService } from './instructor.service'
 import { CreateInstructorDto } from './dto/CreateInstructor.dto'
 import { IInstructor } from './interface/instructor.interface';
@@ -13,4 +13,17 @@ export class InstructorController {
         return objectReturn
     }
 
+    @Get()
+    async listAllInstructors(): Promise<IInstructor[]> {
+        const objectReturn = await this.instructorService.listAllInstructors()
+        return objectReturn
+    }
+
+
+    @Get('/:id')
+    async openInstructorById(@Param('id') id: string): Promise<IInstructor> {
+        const objectReturn = await this.instructorService.openInstructorById(id)
+        return objectReturn
+    }
 }
+
